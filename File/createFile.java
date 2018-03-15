@@ -18,6 +18,11 @@ public class filecreateDemo {
         }
 //输入输出流，注意最后用close()方法
         try {
+            /*
+              FileOutputStream fileOutputStream = new FileOutputStream("ann.txt", true);直接在文本末尾添加内容
+              
+              FileOutputStream fileOutputStream = new FileOutputStream("ann.txt");新添加的内容会覆盖原内容
+            */
             FileOutputStream fileOutputStream = new FileOutputStream("ann.txt", true);
             int n = 0;
             fileOutputStream.write('z');
