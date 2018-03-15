@@ -1,6 +1,6 @@
-```
 import java.io.*;
 
+//文件的生成
 public class filecreateDemo {
     public static void main(String[] args) {
         File file1 = new File("ann.txt");
@@ -11,16 +11,15 @@ public class filecreateDemo {
                 e.printStackTrace();
             }
         }
-
+//目录的创建，多级目录mkdirs(),单极目录 mkdir()
         File file2 = new File("ann/DemoPracitce");
         if (!file2.exists()) {
             file2.mkdirs();
         }
-
+//输入输出流，注意最后用close()方法
         try {
             FileOutputStream fileOutputStream = new FileOutputStream("ann.txt", true);
             int n = 0;
-            //byte[] b=new byte[1024];
             fileOutputStream.write('z');
             fileOutputStream.write('y');
             fileOutputStream.close();
@@ -29,7 +28,7 @@ public class filecreateDemo {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+//通过字节输入流输出文档内容
         try {
             FileInputStream fileInputStream = new FileInputStream("ann.txt");
             int n = 0;
@@ -43,7 +42,7 @@ public class filecreateDemo {
             e.printStackTrace();
         }
 
-
+//通过byte数组输出文本内容
         try {
             FileInputStream fileInputStream2=new FileInputStream("ann.txt");
             byte[] b=new byte[1024];
@@ -62,4 +61,3 @@ public class filecreateDemo {
 
 }
 
-```
