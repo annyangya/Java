@@ -1,0 +1,53 @@
+import java.io.Serializable;
+
+public class StudentInfo implements Serializable {
+    private String stuName;
+    private String stuMajor;
+    private int stuAge;
+    private double stuWeight;
+
+    public StudentInfo(String stuName, String stuMajor, int stuAge, double stuWeight) {
+        this.stuName = stuName;
+        this.stuMajor = stuMajor;
+        this.stuAge = stuAge;
+        this.stuWeight = stuWeight;
+    }
+
+    public String getStuName() {
+        return stuName;
+    }
+
+    public void setStuName(String stuName) {
+        this.stuName = stuName;
+    }
+
+    public String getStuMajor() {
+        return stuMajor;
+    }
+
+    public void setStuMajor(String stuMajor) {
+        this.stuMajor = stuMajor;
+    }
+
+    public int getStuAge() {
+        return stuAge;
+    }
+
+    public void setStuAge(int stuAge) {
+        this.stuAge = stuAge;
+    }
+
+    public double getStuWeight() {
+        return stuWeight;
+    }
+
+    public void setStuWeight(double stuWeight) {
+        this.stuWeight = stuWeight;
+    }
+
+    public String toString()
+    {
+        return "学生信息："+"\n学生姓名："+this.getStuName()+"\n学生专业:"+this.getStuMajor()
+                +"\n学生年龄："+this.getStuAge()+"\n学生体重："+this.getStuWeight();
+    }
+}
