@@ -3,7 +3,7 @@ import java.io.*;
 /*
 用字节流读取文本信息模拟从网上读取信息
 也可以用FileReader,FileWriter读取信息
-用FileReader代替FileInputStream,InputStreanReader;FileWriter代替OutputStreamWriter,OutputStreamSwriter
+用FileReader代替FileInputStream,InputStreanReader;FileWriter代替FileOutputStream ,OutputStreamSwriter
  */
 public class BufferReaderWriterDemo {
     public static void main(String[] args) {
