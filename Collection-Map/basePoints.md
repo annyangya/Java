@@ -51,6 +51,30 @@ public class ListDemo1 {
 4. 具备良好的存取和查找性能
 5. hashSet底层是hashMap
 6. set是接口，没有构造方法
+7. set中插入元素,插入顺序不管，因为set 本身是无序的，而List则是插入末尾
+```java
+set.add("hello");
+```
+#####注意
+插入重复元素的时候不会报错，也不会成功，因为set本身是无序且不能有重复元素的
+##### 迭代器
+1. List中通过get方法取得元素，而set中不能通过get取得。set 中通过迭代器获取元素。
+2. 迭代器是一个接口，可以以统一的方式对各种集合元素进行遍历
+3. hasNext()方法检测集合中是否还要下一个元素：返回值为true则还有下一个元素，返回值为false表示已经遍历完毕
+4. next()方法返回集合中的下一个元素
+5. 调用方法：
+
+1）通过set调用迭代器的iterator方法，将结果存在Iterator的引用it中
+```java
+Iterator it=set.iterator();
+```
+2）遍历迭代器并输出元素,判断迭代器中是否还要元素，如果还有元素则执行循环，在循环中取出元素
+```java
+while(it.hasNext){
+    System.out.print(it.next()+"  ");
+  }
+```
+范例：
 ```java
 import java.util.HashSet;
 import java.util.Iterator;
@@ -60,13 +84,15 @@ import java.util.Set;
 public class setDemo {
 
     public static void main(String[] args) {
-        Set set=new HashSet();
+        Set set=new HashSet();//set的引用指向HashSet的对象
+        //向集合中添加元素
         set.add("java");
         set.add("android");
         set.add("java ee");
         set.add("java se");
 
         System.out.println("集合中的元素为：");
+        
         Iterator iterator=set.iterator();
         while(iterator.hasNext())
         {
