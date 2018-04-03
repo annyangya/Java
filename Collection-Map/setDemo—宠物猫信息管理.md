@@ -291,3 +291,57 @@ huahua找到了
 CatSet{name='花花', month=12, species='黄猫'}
 
 ```
+
+
+### 删除宠物猫的信息
+删除花花2的信息并重新输出,这里使用增强for循环
+```java
+ //将集合set中的元素依次取出来放在cat中
+        for(CatSet cat:set)
+        {
+            if("花花3".equals(cat.getName()))
+            {
+                set.remove(cat);//此时花花3存放在cat中，所以删除cat即可
+            }
+        }
+        //判断是否真的删除
+        System.out.println("删除花花3之后的数据：***************");
+        for(CatSet cat:set)
+        {
+            System.out.println(cat);
+        }
+```
+上述代码的意思是如果set中存放对象有姓名为花花2则将其删除，但是运行之后会报错！
+```java
+Exception in thread "main" java.util.ConcurrentModificationException
+```
+#### foreach循环更加简洁，与使用iterator接口迭代访问集合元素类似的是，foreach循环中的迭代变量也不是集合元素本身，系统只是依次把集合中的元素值赋给迭代变量，因此在foreach循环中修改迭代变量的值也没有实际意义。使用foreach循环访问集合元素时，集合不能被改变，否则会引发java.util.ConcurrentModificationException异常
+
+### 删除全部宠物猫信息
+```java
+set.removeAll(set);
+```
+通过两种方式判断是否删除成功：
+1. 设置flag判断，为真则全部删除
+```java
+        System.out.println("删除集合中所有元素***************");
+        boolean flag1=set.removeAll(set);//返回布尔值类型
+        if(flag1)//为真则删除成功
+        {
+            System.out.println("全部删除");
+        }else
+        {
+            System.out.println("没有全部删除");
+        }
+```
+2. 通过isEmpty方法判断
+```java
+        if(set.isEmpty())
+        {
+            System.out.println("全部删除");
+        }else
+        {
+            System.out.println("没有全部删除");
+        }
+```
+
