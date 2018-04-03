@@ -317,6 +317,54 @@ Exception in thread "main" java.util.ConcurrentModificationException
 ```
 #### foreach循环更加简洁，与使用iterator接口迭代访问集合元素类似的是，foreach循环中的迭代变量也不是集合元素本身，系统只是依次把集合中的元素值赋给迭代变量，因此在foreach循环中修改迭代变量的值也没有实际意义。使用foreach循环访问集合元素时，集合不能被改变，否则会引发java.util.ConcurrentModificationException异常
 
+```java
+        for(CatSet cat:set)
+        {
+            if("花花3".equals(cat.getName()))
+            {
+                set.remove(cat);//此时花花3存放在cat中，所以删除cat即可
+                break;
+            }
+        }
+        //判断是否真的删除
+        System.out.println("删除花花3之后的数据：***************");
+        for(CatSet cat:set)
+        {
+            System.out.println(cat);
+        }
+        
+        结果：删除花花3之后的数据：***************
+CatSet{name='花花', month=12, species='黄猫'}
+CatSet{name='凡凡', month=4, species='黑猫'}
+所以删除成功
+
+```
+所以如果要在运行时删除花花3，则可以在后面加入break，则是如果找到了就停止遍历。但是此时只是删除一个对象，如果要删除多个对象加入break就是错误的了，因为不能全部删除，
+#### 删除删除年龄大于等于10岁的猫
+这里不能再直接就删除了，而是将满足条件的对象存在一个set集合中，然后再删除
+```java
+        System.out.println("删除集合年龄大于等于10岁的猫***************");
+        Set<CatSet> set1=new HashSet<CatSet>();
+        for(CatSet cat:set)
+        {
+            if(cat.getMonth()>=10)
+            {
+                set1.add(cat);
+            }
+        }
+        set.removeAll(set1);
+        for(CatSet cat:set)
+        {
+            System.out.println(cat);
+        }
+```
+如上代码，建立新集合set1，将年龄大于10的元素存放在set1中，再移除set1中的所有元素，之后再输出set中的元素，则只有年龄小于10的了
+###### 结果：
+```java
+删除集合年龄大于等于10岁的猫***************
+CatSet{name='凡凡', month=4, species='黑猫'}
+```
+
 ### 删除全部宠物猫信息
 ```java
 set.removeAll(set);
