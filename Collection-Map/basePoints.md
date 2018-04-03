@@ -45,8 +45,34 @@ public class ListDemo1 {
 ```
 
 #### set：元素无序且不可以重复的集合，称为集
-1. HashSet是Set的一个重要类，称为哈希集
+1. HashSet是Set的一个重要实现类，称为哈希集
 2. HashSet中元素无序且不可以重复
-3. HashSet中只允许有一个null元素
+3. HashSet中只允许有一个null元素（不允许重复，只允许一个）
 4. 具备良好的存取和查找性能
+5. hashSet底层是hashMap
+6. set是接口，没有构造方法
+```java
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
+//存储字符串到set中
+public class setDemo {
+
+    public static void main(String[] args) {
+        Set set=new HashSet();
+        set.add("java");
+        set.add("android");
+        set.add("java ee");
+        set.add("java se");
+
+        System.out.println("集合中的元素为：");
+        Iterator iterator=set.iterator();
+        while(iterator.hasNext())
+        {
+            System.out.print(iterator.next()+"  ");
+        }
+    }
+}
+
+```
