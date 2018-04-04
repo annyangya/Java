@@ -102,3 +102,90 @@ public class setDemo {
 }
 
 ```
+#### Map
+1. Map中的数据是以键值对（key—value）的形式存储的。比如说，username—王五，这里的username就是key，王五就是value。
+2. key-value以Entry类型的对象实例存在，Entry是Map当中的一个接口，把key-value以键值对的形式存储在接口对象当中。
+3. 可以通过key值快速查找value的值，比如对于字典，key就是要查找的词，value就是要查找的词的意思，所以可以通过key快速查找value的值。
+4. 一个映射不能包含重复的键，即key不能重复，必须唯一。但是value可以重复，一个value可以对应多个key键。
+5. 每个键最多只能映射到一个值。
+
+##### HashMap
+1. HashMap是基于Map接口的实现，是Map中最常用的实现类。
+2. 允许使用null值和null键，即它的值允许为空，因为key值唯一，所以HashMap中null键只能有一个，即只能有一个为空的键。
+3. key值不允许重复。
+4. HashMap中的Entry对象是无序排列的。Entry是key-value键值对的映射。ArrayList是有序的，Set（HashSet）和Map（HashMap）是无序排列的。
+
+范例：
+完成一个类似于字典的功能。
+1. 将单词以及单词的注释存储到HashMap中
+2. 显示HashMap当中的内容
+3. 查找某个单词的注释并显示
+
+这里以键值对的形式存储，并添加泛型
+```java
+Map<String,String> animalMap=new HashMap<>();
+```
+因为接下来输入的内容都是String类型的。通过手动输入键值对,put方法可以将数据添加到Map中
+``java
+        System.out.println("输入三组单词对应的注释，并存放到HashMap中");
+        Scanner scanner=new Scanner(System.in);
+        //通过循环添加数据
+        for(int i=0;i<3;i++)
+        {
+            System.out.println("请输入key值：(单词)");
+            String key=scanner.next();
+            System.out.println("请输入value值：（注释）");
+            String value=scanner.next();
+            animalMap.put(key,value);
+        }
+```
+接下来先打印出所有的value值，这里我们使用迭代器
+```java
+        System.out.println("使用迭代器打印输出value值");
+        Iterator<String> it=animalMap.values().iterator();//values方法返回值是collection，通过迭代器方法可将其存储在迭代器中
+        while(it.hasNext())
+        {
+            System.out.print(it.next()+"   ");
+            //打印顺序不一定和输入顺序一样
+        }
+```
+接下来打印所有键值对，我们使用增强 for循环System.out.println("通过entryset打印输出所有键值对");
+```java
+        //意思是set返回值是entry类对象，entry类key是String类，value是String类
+        Set<Map.Entry<String,String>> entryset=animalMap.entrySet();
+        //entryset中取出来的值是Map.Entry<String,String>类型
+        for(Map.Entry<String,String> entry:entryset)
+        {
+//            //获取key值
+//            entry.getKey();
+//            //获取value值
+//            entry.getValue();
+            System.out.print(entry.getKey()+"-");
+            System.out.println(entry.getValue());
+        }
+
+
+```
+查看结果
+```java
+输入三组单词对应的注释，并存放到HashMap中
+请输入key值：(单词)
+cat
+请输入value值：（注释）
+猫
+请输入key值：(单词)
+dog
+请输入value值：（注释）
+狗
+请输入key值：(单词)
+bird
+请输入value值：（注释）
+鸟
+********************************
+使用迭代器打印输出value值
+猫   鸟   狗   ********************************
+通过entryset打印输出所有键值对
+cat-猫
+bird-鸟
+dog-狗
+```
