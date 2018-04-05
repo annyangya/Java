@@ -189,3 +189,36 @@ cat-猫
 bird-鸟
 dog-狗
 ```
+注意，当直接输出entryset结果时：
+```java
+System.out.println(hashMap.entrySet());
+```
+结果：
+```java
+以[cat=猫]的形式输出
+```
+##### 查询
+通过单词查找注释并输出，这里使用keyset方法，将key保存在集合中，然后遍历集合找到注释。
+1. 从键盘输入要找的单词
+```java
+String search=scanner.next();
+```
+2. 取得keyset
+```java
+Set<String> keyset=animalMap.keySet();
+```
+3. 遍历keyset
+```java
+     for(String key:keyset)//从keyset集合中取出变量放在keyset中
+        {
+           if(search.equals(key))//如果输入和对应的key相等
+           {
+               System.out.println("找到了！"+key+"-"+animalMap.get(key));
+               break;
+           }
+        }
+        
+        get(key)方法可以通过key找到对应的value值
+
+```
+
