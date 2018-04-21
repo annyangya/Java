@@ -2,6 +2,7 @@
 ### 向上转型
 1. 父类的引用指向子类具体的实例，把子类的对象转成父类，向上转型也称隐式转型，自动转型
 2. 向上转型后，可以调用子类重写父类的方法以及父类派生的方法，子类特有的方法不能使用
+3. 父类中的静态方法不能被重写，向上转型后的子类只能调用父类的方法。
 
 ### 向下转型
 1. 子类引用指向父类实例,要求必须进行强制类型转换，这时就可以调用子类特有的方法
@@ -140,3 +141,60 @@ public class AnimalText {
     }
 }
 ```
+5. result
+```java
+animal eat food
+cat eat fish
+dog eat meet
+0
+cat eat fish
+cat run
+0.0
+```
+### instanceof运算符
+判断左边部分是不是右边部分的子类
+```java
+
+        if(two instanceof Cat){
+            Cat cat=(Cat)two;
+            cat.eat();
+            cat.run();
+            System.out.println("two可以转成cat类型");
+        }
+        if(two instanceof Dog){
+            Dog dog=(Dog)two;
+            dog.sleep();
+            dog.eat();
+            System.out.println("two可以转成Dog类型");
+        }
+
+        if(two instanceof Animal){
+            System.out.println("Animal");
+        }
+
+        if(two instanceof Object){
+            System.out.println("Object");
+        }
+        
+        //two具有Animal和Object的特征，因为Animal是Cat的父类，Object是Animal的父类
+```
+result:
+```java
+cat eat fish
+cat run
+two可以转成cat类型
+Animal
+Object
+```
+two是Cat的子类，不是Dog的子类
+
+### static在子类继承中的应用
+1. 如果父类中的一个方法是静态的，那么这个方法就是类共有的，子类不能继承后重写这个方法。
+```java
+ public static void say(){
+        System.out.println("Animal say");
+    }
+```
+假如父类新增say方法，在cat中重写这个方法，注意，如果重写方法时没有@Override标记，那么这个方法代表是子类特有的方法，而不是继承而来的方法。
+如果子类在run方法上注明@Override，则代表这是重写父类的方法，那么就会报错。因为父类的static方法是不允许子类重写的，子类只能老老实实继承。
+2. 如果子类的run方法没有注明@Override，向上转型子类的也只能调用父类的run方法，如果子类要想调用自己特有的方法，只能向下转型。
