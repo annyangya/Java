@@ -236,3 +236,61 @@ public void feed(Animal animal){
         cat eat fish
         cat play
 ```
+### 范例二
+master 根据时间多少来决定养哪种宠物。返回不同的实例对象，完成不同操作。
+1. 方法一：写出不同的情况，然后根据传入参数不同来调用不同的方法
+```java
+ public Dog hasManyTime(){
+        System.out.println("时间多养狗");
+        return new Dog();
+    }
+
+    public Cat hasLittleTime(){
+        System.out.println("没有时间养猫");
+        return new Cat();
+    }
+```
+测试
+```java
+       Master master=new Master();
+        Animal cat=new Cat();
+        master.feed(cat);
+
+        boolean isManytime=true;
+        Animal temp;
+        if(isManytime){
+            temp=master.hasManyTime();
+        }else{
+            temp=master.hasLittleTime();
+        }
+        System.out.println(temp);
+
+result:
+时间多养狗
+PolyAnimal.Dog@5c0369c4
+```
+2. 方法二：设置一个参数，这个参数不同，在方法内部实现不同的情况
+```java
+ public Animal raise(boolean hasManyTime){
+        if(hasManyTime){
+            System.out.println("时间多养狗");
+            return new Dog();
+        }else{
+            System.out.println("没有时间养猫");
+            return new Cat();
+        }
+    }
+```
+测试
+```java
+        Animal temp;
+        boolean time=false;
+        temp=master.raise(time);
+        System.out.println(temp);
+        
+        result:
+        没有时间养猫
+        PolyAnimal.Cat@5c0369c4
+        
+```
+
