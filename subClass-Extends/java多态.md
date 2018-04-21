@@ -198,3 +198,41 @@ two是Cat的子类，不是Dog的子类
 假如父类新增say方法，在cat中重写这个方法，注意，如果重写方法时没有@Override标记，那么这个方法代表是子类特有的方法，而不是继承而来的方法。
 如果子类在run方法上注明@Override，则代表这是重写父类的方法，那么就会报错。因为父类的static方法是不允许子类重写的，子类只能老老实实继承。
 2. 如果子类的run方法没有注明@Override，向上转型子类的也只能调用父类的run方法，如果子类要想调用自己特有的方法，只能向下转型。
+### 类型转换案例 
+增加master类，master有feed方法，根据传入参数不同，喂养不同的动物。
+1. 方案一：编写方法，传入不同的类型，调用各自的方法:动物多时不方便
+```java
+ public void feed(Cat cat){
+        cat.eat();
+        cat.run();
+    }
+
+    public void feed(Dog dog){
+        dog.eat();
+        dog.sleep();
+    }
+```
+2. 方案二：编写方法传入动物的父类，方法中通过类型转换，调用指定子类的方法
+```java
+public void feed(Animal animal){
+        if(animal instanceof Cat){
+            Cat cat=(Cat)animal;//强制类型转换之后就可以调用子类特有的方法，cat 和animal其实是一个对象，地址相同，可以通过设置断点调试
+            cat.eat();
+            cat.play();
+        }else if(animal instanceof Dog){
+            Dog dog=(Dog)animal;
+            dog.eat();
+            dog.sleep();
+        }
+    }
+```
+测试类：
+```java
+        Master master=new Master();
+        Cat cat=new Cat();
+        master.feed(cat);
+        
+        result:
+        cat eat fish
+        cat play
+```
