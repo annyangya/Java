@@ -104,6 +104,23 @@ static String url=null;
 Class.forName(jdbcUtils.driver);
 connection= DriverManager.getConnection(jdbcUtils.url,jdbcUtils.username,jdbcUtils.password);
 ```
+我们也可以把加载驱动的代码写入jdbcUtils中：
+```java
+public static Connection getconn(){
+        try {
+            Class.forName(jdbcUtils.driver);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            connection= DriverManager.getConnection(url,username,password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
+```
+这样在main函数里直接调用方法即可。
 #### 最终代码
 1. jdbcUtils.java
 ```
@@ -113,10 +130,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 
 public class jdbcUtils {
@@ -124,6 +138,7 @@ public class jdbcUtils {
     static String username=null;
     static String password=null;
     static String driver=null;
+    static Connection connection=null;
 
     static {
         //创建一个属性配置对象
@@ -188,7 +203,22 @@ public class jdbcUtils {
             }
         }
     }
+
+    public static Connection getconn(){
+        try {
+            Class.forName(jdbcUtils.driver);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            connection= DriverManager.getConnection(url,username,password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
 }
+
 ```
 2. jdbc1.java
 ```java
@@ -203,8 +233,7 @@ public class jdbc1 {
         ResultSet resultSet=null;
 
         try {
-            Class.forName(jdbcUtils.driver);
-            connection= DriverManager.getConnection(jdbcUtils.url,jdbcUtils.username,jdbcUtils.password);
+            connection=jdbcUtils.getconn();
             statement=connection.createStatement();
             String sql="select * from Student";
             resultSet=statement.executeQuery(sql);
@@ -213,8 +242,6 @@ public class jdbc1 {
                 System.out.println(id);
             }
             jdbcUtils.close(connection,statement,resultSet);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
