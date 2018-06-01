@@ -1,27 +1,5 @@
 ### 查询
 ```java
-@Test
-    public void textQuery(){
-        connection=jdbcUtils.getconn();
-        try {
-            statement=connection.createStatement();
-            resultSet=statement.executeQuery("SELECT * FROM info");
-            while (resultSet.next()){
-                String id=resultSet.getString(1);
-                String name=resultSet.getString(2);
-                String age=resultSet.getString(3);
-                System.out.println(id+"  "+name+"  "+age);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            jdbcUtils.close(connection,statement,resultSet);
-        }
-    }
-```
-
-### 插入
-```java
 Connection connection=null;
     Statement statement=null;
     ResultSet resultSet=null;
