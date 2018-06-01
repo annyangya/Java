@@ -1,0 +1,46 @@
+#### jdbcUtils方法类的使用
+在最后关闭Connection链接的时候，不但要关闭Connection，还应该关闭Statement与ResultSet，
+每次关闭时都要捕获异常，为了不使代码显得冗长，我们把关闭的方法写在一个方法类里，即jdbcUtils
+```java
+ public static void close(Connection connection,Statement statement,ResultSet resultSet){
+        closeCon(connection);
+        closeSt(statement);
+        closeRe(resultSet);
+    }
+    
+    public static void closeCon(Connection connection){
+        while(connection!=null){
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                connection=null;
+            }
+        }
+    }
+    
+    public static void closeSt(Statement statement){
+        while (statement!=null){
+            try {
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                statement=null;
+            }
+        }
+    }
+    
+    public static void closeRe(ResultSet resultSet){
+        while(resultSet!=null){
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                resultSet=null;
+            }
+        }
+    }
+```
