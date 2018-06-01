@@ -248,3 +248,8 @@ public class jdbc1 {
     }
 }
 ```
+#### 注册驱动小技巧
+可以不注册驱动，在JDBC后自动加载了驱动。即，可以省略下列代码：
+```java
+Class.forName("com.mysql.jdbc.Driver");
+```
