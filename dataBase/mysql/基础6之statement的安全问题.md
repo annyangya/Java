@@ -52,3 +52,7 @@ String sql="SELECT * FROM info WHERE id='"+id+"'and name='"+name+"'OR 1=1";
 登录成功：1-ann
 ```
 可以看到，即使id和name不匹配，也可以成功登录。这是因为添加的语句or 1=1，这句话永为真，即使前面的不匹配后面为真也可以登录。
+### 小结statement的安全问题
+1. statement执行其实是拼接sql语句，先拼接sql语句，再一起执行，那么就可以在statement后面添加其他任何语句
+2. 前面先拼接sql语句，如果带有数据库关键字，就会认为是关键字，不会认为是普通字符串
+3. 使用preparedstatement，预处理
