@@ -111,6 +111,49 @@ success
 5  lily  12
 6  lingling  28
 ```
+
+### 使用Excuete执行查询
+使用excute执行查询与用excuteQuery执行查询略有不同，excute查询返回的是一个布尔类型的值。
+```java
+@Test
+    public void textExcute(){
+        connection=jdbcUtils.getconn();
+        try {
+            statement=connection.createStatement();
+            String sql="select * from info";
+            // 执行sql语句，返回boolean判断是否包含ResultSet
+            boolean hasResultSet=statement.execute(sql);
+            if(hasResultSet){
+                //获取结果集
+                resultSet=statement.getResultSet();
+                // ResultSetMetaData是用于分析结果集的元数据接口
+                ResultSetMetaData resultSetMetaData=resultSet.getMetaData();
+                //获取该DDL语句影响的表中数据的行数
+                int count=resultSetMetaData.getColumnCount();
+                while(resultSet.next()){
+                    //输出需要的列的数据
+                    String id=resultSet.getString(1);
+                    String name=resultSet.getString(2);
+                    System.out.println(id+"   "+name);
+                }
+                System.out.println(count);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            jdbcUtils.close(connection,statement,resultSet);
+        }
+    }
+    
+    结果
+1   ann
+3   ed
+5   lily
+6   lingling
+3
+```
+
 ### 源文件
 ```java
 package jdbc1;
@@ -196,6 +239,31 @@ public class textDemo {
                 System.out.println("fail");
             }
             textQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            jdbcUtils.close(connection,statement,resultSet);
+        }
+    }
+    
+      @Test
+    public void textExcute(){
+        connection=jdbcUtils.getconn();
+        try {
+            statement=connection.createStatement();
+            String sql="select * from info";
+            boolean hasResultSet=statement.execute(sql);
+            if(hasResultSet){
+                resultSet=statement.getResultSet();
+                ResultSetMetaData resultSetMetaData=resultSet.getMetaData();
+                int count=resultSetMetaData.getColumnCount();
+                while(resultSet.next()){
+                    String id=resultSet.getString(1);
+                    String name=resultSet.getString(2);
+                    System.out.println(id+"   "+name);
+                }
+                System.out.println(count);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
