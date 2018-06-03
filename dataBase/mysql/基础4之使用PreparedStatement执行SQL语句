@@ -1,0 +1,42 @@
+### 基础知识
+当需要向反复执行一条相似语句时，比如向数据库中插入数据，每次都需要执行插入语句，但是插入的值不一样，这种情况就可以用占位符来代替，比如
+```java
+insert into info values(?,?,?);
+```
+statement不支持使用占位符，我们就可以用preparedStatement，这是statement的子接口。
+```java
+@Test
+    public void textPreparedStatement(){
+        connection=jdbcUtils.getconn();
+        String sql="insert into info values(?,?,18)";
+        try {
+            preparedStatement=connection.prepareStatement(sql);
+            for(int i=0;i<10;i++){
+            //为占位符代表的参数设置具体的值
+                preparedStatement.setString(1,"1"+i);
+                preparedStatement.setString(2,"a"+i);
+               // preparedStatement.executeUpdate();不知道为什么，加了这句话就报错
+            }
+            //执行查询语句，这是前面写的查询方法。
+           textQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    结果：
+    1  ann  100
+3  ed  40
+5  lily  12
+6  lingling  28
+10  a0  18
+11  a1  18
+12  a2  18
+13  a3  18
+14  a4  18
+15  a5  18
+16  a6  18
+17  a7  18
+18  a8  18
+19  a9  18
+```
